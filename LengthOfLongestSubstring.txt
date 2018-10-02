@@ -1,0 +1,36 @@
+/*Input: "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3. 
+             Note that the answer must be a substring, "pwke" is a subsequence and not a substring.*/
+             
+             
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        char[] input = s.ToCharArray();
+        int highestLength = 0;
+        List<char> charList = new List<char>();
+        for(int i=0;i<input.Length;i++){
+            charList.Add(input[i]);
+            if (charList.Count > highestLength)
+                    highestLength = charList.Count;
+            for(int j=i+1;j<input.Length;j++){
+                if(charList.Contains(input[j])){
+                    if(charList.Count > highestLength)
+                        highestLength = charList.Count;
+                    charList.Clear();
+                    break;
+                }
+                else{
+                    charList.Add(input[j]);
+                    if(j == input.Length - 1)
+                    {
+                        if (charList.Count > highestLength)
+                            highestLength = charList.Count;
+                        charList.Clear();
+                    }
+                }
+            }
+        }
+        return highestLength;
+    }
+}
