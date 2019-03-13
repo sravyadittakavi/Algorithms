@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+
+namespace TreeTraversal
+{
+    /// <summary>
+    /// InOrder, PreOrder, and PostOrder traversal of a given tree
+    /// </summary>
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            // Create tree
+            Node root = new Node();
+            root.Val = 1;
+
+            Node n2 = new Node();
+            n2.Val = 2;
+            root.LeftNode = n2;
+
+            Node n3 = new Node();
+            n3.Val = 3;
+            root.RightNode = n3;
+
+            Node n4 = new Node();
+            n4.Val = 4;
+            n2.LeftNode = n4;
+
+            Node n5 = new Node();
+            n5.Val = 5;
+            n2.RightNode = n5;
+
+            // Inorder traversal
+            Console.WriteLine("InOrder Traversal Result:");
+            List<int> result = GetInorderResult(root);
+            foreach(int i in result)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine(" ");
+
+            // Pre Order Traversal
+            Console.WriteLine(" ");
+            result = GetPreOrderResult(root);
+            Console.WriteLine("Pre Order Traversal Result:");
+            foreach (int i in result)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine(" ");
+
+            //Post Order Traversal
+            Console.WriteLine(" ");
+            result = GetPostOrderResult(root);
+            Console.WriteLine("Post Order Traversal Result:");
+            foreach (int i in result)
+            {
+                Console.Write(i + " ");
+            }
+
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// In order tree traversal
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static List<int> GetInorderResult(Node root)
+        {
+            List<int> result = new List<int>();
+            List<int> leftVal = new List<int>();
+            List<int> rightVal = new List<int>();
+            if(root!= null && root.LeftNode == null && root.RightNode == null)
+            {
+                result.Add(root.Val);
+            }
+            else
+            {
+                leftVal = GetInorderResult(root.LeftNode);
+                rightVal = GetInorderResult(root.RightNode);
+                result.InsertRange(0,leftVal);
+                result.Insert(leftVal.Count, root.Val);
+                result.InsertRange(leftVal.Count+1, rightVal);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Pre order tree traversal
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static List<int> GetPreOrderResult(Node root)
+        {
+            List<int> result = new List<int>();
+            List<int> leftVal = new List<int>();
+            List<int> rightVal = new List<int>();
+            if (root != null && root.LeftNode == null && root.RightNode == null)
+            {
+                result.Add(root.Val);
+            }
+            else
+            {
+                leftVal = GetPreOrderResult(root.LeftNode);
+                rightVal = GetPreOrderResult(root.RightNode);
+                result.Insert(0, root.Val);
+                result.InsertRange(1, leftVal);               
+                result.InsertRange(leftVal.Count + 1, rightVal);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Post order tree traversal
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static List<int> GetPostOrderResult(Node root)
+        {
+            List<int> result = new List<int>();
+            List<int> leftVal = new List<int>();
+            List<int> rightVal = new List<int>();
+            if (root != null && root.LeftNode == null && root.RightNode == null)
+            {
+                result.Add(root.Val);
+            }
+            else
+            {
+                leftVal = GetPostOrderResult(root.LeftNode);
+                rightVal = GetPostOrderResult(root.RightNode);
+                result.InsertRange(0, leftVal);
+                result.InsertRange(leftVal.Count, rightVal);
+                result.Insert(leftVal.Count+1, root.Val);
+                
+            }
+            return result;
+        }
+    }
+
+    public class Node
+    {
+        public Node LeftNode;
+        public int Val;
+        public Node RightNode;
+    }
+}
