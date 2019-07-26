@@ -51,6 +51,21 @@ namespace MaxProfit1
 
         public static int GetMaxProfitWithMultipleTransactionsAndCooldown(int[] prices)
         {
+            //buy[i] : Maximum profit which end with buying on day i or end
+            //with buying on a day before i and takes rest until the day i since then.
+            //sell[i] : Maximum profit which end with selling on day i or end
+            //with selling on a day before i and takes rest until the day i since then.
+
+            // buy[i]: To make a decision whether to buy at i, we either take a rest, 
+            // by just using the old decision at i - 1, or sell at / before i - 2, 
+            // then buy at i, We cannot sell at i -1, then buy at i, because of cooldown.
+            // sell[i]: To make a decision whether to sell at i, 
+            // we either take a rest, by just using the old decision at i - 1, 
+            // or buy at / before i - 1, then sell at i.
+
+            //buy[i] = Math.max(buy[i - 1], sell[i - 2] - prices[i]);
+            //sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i]);
+
             if (prices == null || prices.Length <= 1)
                 return 0;
             int b0 = -prices[0], b1 = b0;
