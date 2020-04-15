@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StringShift
 {
-    class StringShift
+    class StringShifts
     {
         static void Main(string[] args)
         {
