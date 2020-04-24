@@ -34,15 +34,13 @@ namespace SubArraySum
                 // then sum from index i to j will be k
                 // This is used below to store the counts 
                 // in dictionary
-                if (sumCounts.ContainsKey(sum - k))
-                {
-                    int val = sumCounts[sum - k];
-                    counter += val;                   
-                    sumCounts[sum - k] = val+1;
-                }
-              
-                sumCounts.Add(sum, 1);
-                
+                if (sumCounts.ContainsKey(sum - k))                
+                    counter += sumCounts[sum - k];
+
+                if (sumCounts.ContainsKey(sum))
+                    sumCounts[sum] += 1;
+                else
+                    sumCounts.Add(sum, 1);                
             }
             return counter;
         }
